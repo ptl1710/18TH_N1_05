@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Giải phương trình bậc nhất</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #form {
+                width: 50%;
+                margin: auto;
+                border: solid 3px;
+                padding: 20px;
+            }
+            .con{
+                width: 100%;
+                height: 100%;
+                display: flex;
+            }
+            .left, .right {
+                width: 50%;
+                height: 100%;
+            }
+            #form input{
+                margin-bottom: 15px;
+                width: 140px;
+            }
+        </style>
+    </head>
+    <body>
+        <?php 
+            $xeploai = '';
+            $diem = '';
+            $khuvuc = '';
+            $uutien = '';
+            $a = '';
+            $b ='';
+            $c ='';
+            $d ='';  
+            if(isset($_POST['calculate'])){
+                $a = $_POST['toan'] ? $_POST['toan'] : "";
+                $b = $_POST['ly'] ? $_POST['ly'] : "";
+                $c = $_POST['hoa'] ? $_POST['hoa'] : "";
+                $d = $_POST['khuvuc'] ? $_POST['khuvuc'] : "";
+                if($a!="" && $b != ""&& $c != ""&& $d != "" ){
+                    $diem = ($a+$b+$c);
+                    if($d == 1 || $d == 2){
+                        $diem += 5;
+                        $uutien = 5;
+                    }else if($d == 3){
+                        $diem += 3;
+                        $uutien  =3;
+                    }else{
+                        $uutien = 0;
+                    }
+                    if($diem >= 24){
+                        $xeploai = "Giỏi";
+                    }else if($diem >=21){
+                        $xeploai = "Khá";
+                    }else if($diem >=15){
+                        $xeploai = "Trung bình";
+                    }else{
+                        $xeploai = "Yếu";
+                    }
+                }else{
+                    echo "<script type='text/javascript'>alert('Vui lòng điền đầy đủ thông tin');</script>";
+                }
+            }                     
+        ?>
+        <form id='form' method="post" action="">
+            <h2 style='text-align: center'>XẾP LOẠI KẾT QUẢ TUYỂN SINH</h2>
+        <div class="con">
+            <div class='left'>  
+                <p>Điểm môn Toán :</p>
+                <p>Điểm môn Lý :</p>
+                <p>Điểm môn Hóa :</p>
+                <p>Chọn khu vực :</p>
+            </div>
+            <div class='right'>
+                <input key="1" type="number" style='margin-top: 14px;' min="0" max="10" name="toan" value=""/> <br>            
+                <input type="number" id='ly'  min="0" max="10"  name="ly" value=""/> <br>            
+                <input type="number" id='hoa'  min="0" max="10"  name="hoa" value=""/> <br>            
+                <select name="khuvuc" id="cars">
+                    <option value="1">Khu vực 1</option>
+                    <option value="2">Khu vực 2</option>
+                    <option value="3">Khu vực 3</option>
+                    <option value="4">Khu vực 4</option>
+                    <option value="5">Khu vực 5</option>
+                </select> <br>
+            </div>
+        </div>
+        <div style='text-align: center'>
+        <br> <br>
+            <input type="submit" name="calculate" value="Xếp loại"> <br> <br>
+        </div>
+        <hr>
+        <div style='text-align: center'>
+            <?php echo "Tổng điểm: "."<h1>$diem</h1>"; ?>
+            <?php echo "Xếp loại: "."<h1>$xeploai</h1>"; ?>
+            <?php echo "Điểm ưu tiên: "."<h1>$uutien</h1>"; ?>
+            </div>
+        </form>
+        
+    </body>
+</html>
